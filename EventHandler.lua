@@ -1,51 +1,41 @@
 local EventHandler = {}
 
-EventHandler.onMouseDown         = {}
-EventHandler.onMouseUp           = {}
-EventHandler.onClickSubcribers   = {}
-EventHandler.onHoverSubcribers   = {}
-EventHandler.onEnterSubsrcribers = {}
-EventHandler.onExitSubscribers   = {}
+EventHandler.elements = {}
 
-
-function EventHandler:addSubscriber(event, subcriber)
-    table.insert(event,subcriber)
+function EventHandler:addEventReactor(reactorElement)
+    table.insert(self.elements, reactorElement)
 end
 
-function EventHandler:checkMouse()
-    local mouseX, mouseY = love.mouse.getPosition()
-    require("DebugInfo"):addText("clickingElement", tostring(false))
-    require("DebugInfo"):addText("mouseXY", tostring(mouseX) .. "," .. tostring(mouseY))
-    require("DebugInfo"):addText("mouseDown", tostring(love.mouse.isDown(1)))
+function EventHandler:handle()
 
-    for _, element in ipairs(self.onMouseDown) do
-        if love.mouse.isDown(1) then
-            if mouseX >= element.x and mouseX <= element.x + element.width and
-                mouseY >= element.y and mouseY <= element.y + element.height then
-                element:onMouseDown()
+    for _, element in ipairs(self.elements) do
+        --mouse
+        local mouseX, mouseY = love.mouse.getPosition()
+        local mouseOnElement = mouseX >= element.x and mouseX <= element.x + element.width and 
+                               mouseY >= element.y and mouseY <= element.y + element.height
+
+        if element.onHover then
+            element:onHover(mouseOnElement)
+        end
+
+        if mouseOnElement then
+            local mouseWasDown = element.mouseDown
+            local mouseUp = false
+            if element.onMouseUp and mouseWasDown and not love.mouse.isDown(1) then
+                element:onMouseUp()    
+                mouseUp = true
+            end         
+            if element.onMouseDown and love.mouse.isDown(1) then
+                element:onMouseDown()    
+            end     
+
+            if element.onClick and mouseWasDown and mouseUp then
+                element:onClick()    
             end
         end
+        --
+        -- keyboard
     end
-
-    for _, element in ipairs(self.onMouseUp) do
-        if not love.mouse.isDown(1) then
-            if mouseX >= element.x and mouseX <= element.x + element.width and
-                mouseY >= element.y and mouseY <= element.y + element.height then
-                element:onMouseUp()
-            end
-        end
-    end
-    
-    if love.mouse.isDown(1) then --[[left mouse button]]
-        for _, element in ipairs(self.onClickSubcribers) do
-            if mouseX >= element.x and mouseX <= element.x + element.width and
-               mouseY >= element.y and mouseY <= element.y + element.height then
-                require("DebugInfo"):addText("clickingElement", tostring(true))
-                element:onClick()
-            end 
-        end    
-    end
-    
 end
 
 return EventHandler

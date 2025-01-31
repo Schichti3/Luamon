@@ -13,13 +13,27 @@ Button.borderColor = {1,0,0}
 Button.visible = true
 Button.enabled = true
 
-Button.onMouseDown = function (self) self.color = {0,1,0} end
-Button.onMouseUp   = function (self) self.color = {0,0,1} end
+Button.mouseDown = false
 
-Button.onClick = function (self) end
-Button.onHover = function (self) end
-Button.onEnter = function (self) end
-Button.onExit  = function (self) end
+Button.onMouseDown = function (self)
+    self.mouseDown = true
+    self.color = {1,1,1}
+end
+Button.onMouseUp = function (self)
+    self.mouseDown = false
+    self.color = {0,0,1}
+end
+Button.onHover = function (self, mouseOnElement)
+    if mouseOnElement then
+        self.color = {0,1,0}
+    else
+        self.color = {0,0,1}
+        self.mouseDown = false
+    end
+end
+Button.onClick = function (self)
+    self.text = "clicked"
+end
 
 function Button:draw()
     if self.visible then
@@ -28,6 +42,9 @@ function Button:draw()
         love.graphics.setColor(self.borderColor[1],self.borderColor[2],self.borderColor[3])
         love.graphics.setLineWidth(self.borderWidth)
         love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+        local newX, newY = require("Utility").getCenteredTextCoordinates(self.text, self.x, self.y, self.width, self.height)
+        local textHeight = love.graphics.getFont():getHeight(self.text)
+        love.graphics.print(self.text, newX, newY)
     end
 end
 
@@ -36,6 +53,6 @@ function Button:new(o)
     setmetatable(newTable, self)
     self.__index = self
     return newTable
-end    
+end
 
 return Button
