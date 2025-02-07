@@ -6,10 +6,14 @@ DebugInfo.texts = {}
 
 DebugInfo.firstAppendInThisRuntime = true
 
+local debugDirExisting = false
+
 function DebugInfo:addToOutputFile(filename, text)
     if self.active then
-        if love.filesystem.getInfo("debug").type ~= "directory" then
-            love.filesystem.createDirectory("debug")
+        if debugDirExisting == false then
+            if os.execute("mkdir debug") then
+                debugDirExisting = true
+            end
         end
         local file = io.open("debug/" .. filename .. ".txt", "a")
         if file then

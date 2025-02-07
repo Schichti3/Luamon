@@ -25,7 +25,13 @@ end
 
 function TextureButton:mouseInArea(mouseX, mouseY)
 
-    local w, h = AssetManager:getImageData(self.activeTextureName):getDimensions()
+    local imageData = AssetManager:getImageData(self.activeTextureName)
+
+    if imageData == nil then
+        return
+    end
+
+    local w, h = imageData:getDimensions()
     require("DebugInfo"):addText("w", w) 
     require("DebugInfo"):addText("h", h) 
 

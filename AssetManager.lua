@@ -4,9 +4,7 @@ AssetManager.loaded = false
 
 AssetManager.graphics = {}
 
-AssetManager.textures = {}
-
-AssetManager.imageData = {}
+AssetManager.sounds = {}
 
 AssetManager.textureNotFoundTexture = {}
 
@@ -35,7 +33,7 @@ function AssetManager:load(directoryPath)
 end
 
 function AssetManager:getTexture(textureName)
-    if self.graphics[textureName].texture then
+    if self.graphics[textureName] then
         return self.graphics[textureName].texture
     else
         if self.textureNotFoundTexture[textureName] == nil then
@@ -48,7 +46,7 @@ function AssetManager:getTexture(textureName)
 end
 
 function AssetManager:getImageData(textureName)
-    if self.graphics[textureName].imageData then
+    if self.graphics[textureName] then
         return self.graphics[textureName].imageData
     else
         return nil
