@@ -1,36 +1,48 @@
 local EventHandler = {}
 
-EventHandler.elements = {}
+EventHandler.guiElements = {}
 
 function EventHandler:addEventReactor(reactorElement)
-    table.insert(self.elements, reactorElement)
+    table.insert(self.guiElements, reactorElement)
 end
 
 function EventHandler:handle()
 
-    for _, element in ipairs(self.elements) do
+    for _, element in ipairs(self.guiElements) do
         --mouse
         local mouseX, mouseY = love.mouse.getPosition()
-        local mouseOnElement = mouseX >= element.x and mouseX <= element.x + element.width and 
-                               mouseY >= element.y and mouseY <= element.y + element.height
+        local mouseOnElement = element:mouseInArea(mouseX, mouseY)
 
         if element.onHover then
             element:onHover(mouseOnElement)
         end
 
         if mouseOnElement then
-            local mouseWasDown = element.mouseDown
-            local mouseUp = false
-            if element.onMouseUp and mouseWasDown and not love.mouse.isDown(1) then
-                element:onMouseUp()    
-                mouseUp = true
+            local leftMouseWasDown = element.mouseDown.left
+            local rightMouseWasDown = element.mouseDown.right
+            local leftMouseUp = false
+
+            if element.onMouseUp and leftMouseWasDown and not love.mouse.isDown(1) then
+                element.mouseDown.left = false
+                element:onMouseUp(1)
+                leftMouseUp = true
             end         
-            if element.onMouseDown and love.mouse.isDown(1) then
-                element:onMouseDown()    
+            if element.onMouseUp and rightMouseWasDown and not love.mouse.isDown(2) then
+                element.mouseDown.right = false
+                element:onMouseUp(2)
             end     
 
-            if element.onClick and mouseWasDown and mouseUp then
-                element:onClick()    
+            if element.onMouseDown and love.mouse.isDown(1) then
+                element.mouseDown.left = true
+                element:onMouseDown(1)
+            end     
+            if element.onMouseDown and love.mouse.isDown(2) then
+                element.mouseDown.right = true
+                element:onMouseDown(2)
+            end    
+
+            if element.onClick and leftMouseWasDown and leftMouseUp then
+                element:onClick()
             end
         end
         --

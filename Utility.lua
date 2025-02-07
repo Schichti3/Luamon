@@ -10,7 +10,7 @@ local Utility = {}
 -- @return y number centered coordinate
 function Utility.getCenteredTextCoordinates(text, x, y, w, h)
     local textWidth = love.graphics.getFont():getWidth(text)
-    local textHeight = love.graphics.getFont():getHeight(text)
+    local textHeight = love.graphics.getFont():getHeight()
     local x =  x + w / 2 - textWidth / 2
     local y = y + h / 2 - textHeight / 2
     return x, y
