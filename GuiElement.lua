@@ -15,10 +15,10 @@ GuiElement.draw          = function (self) error("Abstract function called") end
 
 GuiElement.mouseInArea   = function (self, mouseX, mouseY) error("Abstract function called") end
 
-GuiElement.onHover       = function (self, onElement) --[[error("Abstract function called")]] end
+GuiElement.onHover       = function (self, onElement) error("Abstract function called") end
 GuiElement.onMouseDown   = function (self, button) error("Abstract function called") end
 GuiElement.onMouseUp     = function (self, button) error("Abstract function called") end
-GuiElement.onClick       = function (self) error("Abstract function called") end
+GuiElement.onClick       = function (self, button) error("Abstract function called") end
 
 GuiElement.onKeyDown     = function (self) error("Abstract function called") end
 GuiElement.onKeyUp       = function (self) error("Abstract function called") end

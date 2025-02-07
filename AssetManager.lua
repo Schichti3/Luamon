@@ -2,7 +2,11 @@ local AssetManager = {}
 
 AssetManager.loaded = false
 
+AssetManager.graphics = {}
+
 AssetManager.textures = {}
+
+AssetManager.imageData = {}
 
 AssetManager.textureNotFoundTexture = {}
 
@@ -17,7 +21,8 @@ function AssetManager:load(directoryPath)
         if love.filesystem.getInfo(file).type == "file" then
             if file:sub(-4) == ".png" or file:sub(-4) == ".jpg" then
                 local fileName = file:match("^.+[/\\](.+)%.%w+$")
-                self.textures[fileName] = love.graphics.newImage(file)
+                self.graphics[fileName] = {texture = love.graphics.newImage(file),
+                                           imageData = love.image.newImageData(file)}
                 require("DebugInfo"):addToOutputFile("assets", fileName)
             end
         elseif love.filesystem.getInfo(file).type == "directory" then
@@ -29,9 +34,9 @@ function AssetManager:load(directoryPath)
     self.loaded = true
 end
 
-function AssetManager:get(textureName)
-    if self.textures[textureName] then
-        return self.textures[textureName]
+function AssetManager:getTexture(textureName)
+    if self.graphics[textureName].texture then
+        return self.graphics[textureName].texture
     else
         if self.textureNotFoundTexture[textureName] == nil then
             self.textureNotFoundTexture[textureName] = self:createTexture(textureName)
@@ -41,6 +46,15 @@ function AssetManager:get(textureName)
         end
     end
 end
+
+function AssetManager:getImageData(textureName)
+    if self.graphics[textureName].imageData then
+        return self.graphics[textureName].imageData
+    else
+        return nil
+    end
+end
+
 
 
 local textureNotFoundWidth = love.graphics.getFont():getWidth("<textureNotFound>")

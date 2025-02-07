@@ -49,5 +49,9 @@ function SimpleButton:onClick()
     self.text = "clicked!"
 end
 
+function SimpleButton:onHover(onElement)
+    
+end
+
 
 return SimpleButton

@@ -7,14 +7,19 @@ DebugInfo.texts = {}
 DebugInfo.firstAppendInThisRuntime = true
 
 function DebugInfo:addToOutputFile(filename, text)
-    local file = io.open(filename .. ".txt", "a")
-    if file then
-        if self.firstAppendInThisRuntime then
-            file:write("\n")
-            self.firstAppendInThisRuntime = false
+    if self.active then
+        if love.filesystem.getInfo("debug").type ~= "directory" then
+            love.filesystem.createDirectory("debug")
         end
-        file:write(text .. "\n")
-        file:close()
+        local file = io.open("debug/" .. filename .. ".txt", "a")
+        if file then
+            if self.firstAppendInThisRuntime then
+                file:write("\n")
+                self.firstAppendInThisRuntime = false
+            end
+            file:write(text .. "\n")
+            file:close()
+        end
     end
 end
 

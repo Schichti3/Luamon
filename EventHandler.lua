@@ -21,6 +21,7 @@ function EventHandler:handle()
             local leftMouseWasDown = element.mouseDown.left
             local rightMouseWasDown = element.mouseDown.right
             local leftMouseUp = false
+            local rightMouseUp = false
 
             if element.onMouseUp and leftMouseWasDown and not love.mouse.isDown(1) then
                 element.mouseDown.left = false
@@ -30,6 +31,7 @@ function EventHandler:handle()
             if element.onMouseUp and rightMouseWasDown and not love.mouse.isDown(2) then
                 element.mouseDown.right = false
                 element:onMouseUp(2)
+                rightMouseUp = true
             end     
 
             if element.onMouseDown and love.mouse.isDown(1) then
@@ -42,7 +44,10 @@ function EventHandler:handle()
             end    
 
             if element.onClick and leftMouseWasDown and leftMouseUp then
-                element:onClick()
+                element:onClick(1)
+            end
+            if element.onClick and rightMouseWasDown and rightMouseUp then
+                element:onClick(2)
             end
         end
         --

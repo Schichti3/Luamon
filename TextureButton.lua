@@ -19,7 +19,53 @@ end
 
 function TextureButton:draw()
     if self.visible then
-        love.graphics.draw(AssetManager:get(self.activeTextureName), self.x, self.y)
+        love.graphics.draw(AssetManager:getTexture(self.activeTextureName), self.x, self.y)
+    end
+end
+
+function TextureButton:mouseInArea(mouseX, mouseY)
+
+    local w, h = AssetManager:getImageData(self.activeTextureName):getDimensions()
+    require("DebugInfo"):addText("w", w) 
+    require("DebugInfo"):addText("h", h) 
+
+    local tolerance = 1
+    if mouseX >= self.x + tolerance and mouseX <= self.x + w - tolerance and 
+       mouseY >= self.y + tolerance and mouseY <= self.y + h - tolerance then
+        local localX = mouseX - self.x
+        local localY = mouseY - self.y
+
+        local r, g, b, a = AssetManager:getImageData(self.activeTextureName):getPixel(localX, localY)
+
+        if a > 0 then
+            require("DebugInfo"):addText("onImage", "true") 
+        else
+            require("DebugInfo"):addText("onImage", "false") 
+        end
+
+        return a > 0
+    else
+        return false
+    end
+end
+
+function TextureButton:onMouseDown()
+    self.activeTextureName = self.mouseDownTextureName
+end
+
+function TextureButton:onMouseUp()
+    self.activeTextureName = self.defaultTextureName
+end
+
+function TextureButton:onClick()
+   
+end
+
+function TextureButton:onHover(onElement)
+    if onElement then
+        self.activeTextureName = self.hoverTextureName
+    else
+        self.activeTextureName = self.defaultTextureName
     end
 end
 
