@@ -1,15 +1,7 @@
 local EventHandler = {}
 
-EventHandler.guiElements = {}
-
-EventHandler.activeScenes = {}
-
-function EventHandler:addEventReactor(reactorElement)
-	table.insert(self.guiElements, reactorElement)
-end
-
-function EventHandler:handle()
-	for _, element in ipairs(self.guiElements) do
+function EventHandler:handle(elements)
+	for _, element in ipairs(elements) do
 		if not element.enabled or not element.visible then
 			goto continue
 		end

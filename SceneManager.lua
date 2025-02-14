@@ -1,5 +1,4 @@
-require("Scene")
-require("EventHandler")
+local EventHandler = require('EventHandler')
 
 local SceneManager = {}
 
@@ -21,8 +20,7 @@ end
 
 function SceneManager:handleEvents()
 	for i = #self.sceneStack, 1, -1 do
-		for a = 1, #self.sceneStack[i], 1 do
-		end
+		EventHandler:handle(self.sceneStack[i])
 	end
 end
 

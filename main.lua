@@ -24,7 +24,7 @@ function love.load()
 end
 
 function love.update()
-	SceneManager.handleEvents()
+	SceneManager:handleEvents()
 end
 
 function love.draw()
