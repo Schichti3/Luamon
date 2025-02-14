@@ -1,0 +1,19 @@
+-- probably not needed
+--local Scene = {}
+--
+--Scene.elements = {}
+--
+--function Scene:draw()
+--	for i = 1, #self.elements, 1 do
+--		self.elements[i]:draw()
+--	end
+--end
+--
+--function Scene:new(templateTable)
+--	local newTable = templateTable or {}
+--	setmetatable(newTable, self)
+--	self.__index = self
+--	return newTable
+--end
+--
+--return Scene
