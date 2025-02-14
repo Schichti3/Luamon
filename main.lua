@@ -21,6 +21,8 @@ local newTextureButton2 = TextureButton:new({
 
 function love.load()
 	AssetManager:load("assets")
+	SceneManager:initScenes(require('Scenes'))
+	SceneManager:push('mainMenu')
 end
 
 function love.update()
@@ -28,8 +30,9 @@ function love.update()
 end
 
 function love.draw()
-	newSimpleButton:draw()
-	newTextureButton:draw()
-	newTextureButton2:draw()
+	SceneManager:draw()
+--	newSimpleButton:draw()
+--	newTextureButton:draw()
+--	newTextureButton2:draw()
 	require("DebugInfo"):show()
 end

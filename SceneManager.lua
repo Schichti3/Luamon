@@ -20,13 +20,15 @@ end
 
 function SceneManager:handleEvents()
 	for i = #self.sceneStack, 1, -1 do
-		EventHandler:handle(self.sceneStack[i])
+		EventHandler:handle(self.scenes[self.sceneStack[i]])
 	end
 end
 
 function SceneManager:draw()
 	for i = 1, #self.sceneStack, 1 do
-		self.sceneStack[i]:draw()
+		for _, element in pairs(self.scenes[self.sceneStack[i]]) do
+			element:draw()
+		end
 	end
 end
 

@@ -37,6 +37,7 @@ function Element:hasEventHandling()
 	if self.onKeyDown or self.onKeyUp or self.onKeyPress then
 		return true
 	end
+return false
 end
 
 return Element
