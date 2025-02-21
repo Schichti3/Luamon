@@ -1,5 +1,5 @@
 local AssetManager = require('AssetManager')
-local Animation = setmetatable({}, { __index = require('Element') })
+local Animation = {}
 
 Animation.spritesheetName = ''
 Animation.quad = nil
@@ -7,32 +7,28 @@ Animation.frameHeight = 0
 Animation.frameWidth = 0
 Animation.frameIndex = 1
 Animation.frameCount = 0
-Animation.timePerFrame = 0.2
+Animation.timePerFrame = 1
 Animation.timeOnCurrentFrame = 0
 
-function Animation:new(templateTable)
-  local obj = templateTable or {}
+function Animation:new(spritesheetName, frameWidth, timePerFrame)
+  local obj = { spritesheetName = spritesheetName, frameWidth = frameWidth, timePerFrame = timePerFrame }
   setmetatable(obj, self)
   self.__index = self
-  if obj.spritesheetName ~= '' then
-    obj.frameHeight = AssetManager:getTexture(obj.spritesheetName):getHeight()
-    obj.frameCount = AssetManager:getTexture(obj.spritesheetName):getWidth() / obj.frameWidth
-    obj.quad = love.graphics.newQuad(
-      0,
-      0,
-      obj.frameWidth,
-      obj.frameHeight,
-      AssetManager:getTexture(obj.spritesheetName):getWidth(),
-      AssetManager:getTexture(obj.spritesheetName):getHeight()
-    )
-  else
-    error('Trying to create a new sprite without a spritesheetName')
-  end
+  obj.frameHeight = AssetManager:getTexture(obj.spritesheetName):getHeight()
+  obj.frameCount = AssetManager:getTexture(obj.spritesheetName):getWidth() / obj.frameWidth
+  obj.quad = love.graphics.newQuad(
+    0,
+    0,
+    obj.frameWidth,
+    obj.frameHeight,
+    AssetManager:getTexture(obj.spritesheetName):getWidth(),
+    AssetManager:getTexture(obj.spritesheetName):getHeight()
+  )
   return obj
 end
 
-function Animation:draw()
-  love.graphics.draw(AssetManager:getTexture(self.spritesheetName), self.quad, self.x, self.y)
+function Animation:draw(x, y)
+  love.graphics.draw(AssetManager:getTexture(self.spritesheetName), self.quad, x, y)
 end
 
 function Animation:update(dt)
