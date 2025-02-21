@@ -1,7 +1,10 @@
 local Scene = require('Scene')
+local Sprite = require('Sprite')
 local Animation = require('Animation')
 local SimpleButton = require('SimpleButton')
 local TextureButton = require('TextureButton')
+local Controller = require('Controller')
+
 local Scenes = {}
 
 Scenes['mainMenu'] = Scene:new({
@@ -11,12 +14,30 @@ Scenes['mainMenu'] = Scene:new({
     defaultTextureName = 'playButtonDefault',
     mouseDownTextureName = 'playButtonMouseDown',
     hoverTextureName = 'playButtonHover',
+    onMouseDown = function()
+      Controller.changeSpriteAnimation('mainMenu', 'spriteTest2', 'attack')
+    end,
+    onMouseUp = function()
+      Controller.changeSpriteAnimation('mainMenu', 'spriteTest2', 'idle')
+    end,
+    onClick = function()
+      Controller.sceneManager:push('fightAttacks')
+    end,
   }),
-  spriteTest = Animation:new({ x = 50, y = 50, spritesheetName = 'nohidance2', timePerFrame = 0.2, frameWidth = 84 }),
+  spriteTest2 = Sprite:new(50, 50, 'idle', { idle = Animation:new('nohidance2', 84, 0.2), attack = Animation:new('nohidance', 84, 0.2) }),
 })
 Scenes['settings'] = {}
 Scenes['fightMain'] = {}
-Scenes['fightAttacks'] = {}
+Scenes['fightAttacks'] = Scene:new({
+  attack1 = SimpleButton:new({
+    x = 200,
+    y = 200,
+    text = 'attack1',
+    onClick = function()
+      Controller.changeElementVariable('fightAttacks', 'attack1', 'text', 'attack187')
+    end,
+  }),
+})
 Scenes['fightLuamonSelection'] = {}
 Scenes['fightInventory'] = {}
 
