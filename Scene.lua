@@ -9,6 +9,9 @@ function Scene:new(elements)
       if key == 'draw' then
         return Scene.draw
       end
+      if key == 'update' then
+        return Scene.update
+      end
       if t.elements[key] then
         return t.elements[key]
       end
@@ -21,6 +24,12 @@ end
 function Scene:draw()
   for _, element in pairs(self.elements) do
     element:draw()
+  end
+end
+
+function Scene:update(dt)
+  for _, element in pairs(self.elements) do
+    element:update(dt)
   end
 end
 

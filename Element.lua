@@ -10,15 +10,17 @@ Element.mouseDown = { left = false, right = false }
 Element.keyDown = {}
 
 Element.new = function(self)
-	error("Abstract function called")
+  error('Abstract function called')
 end
 
 Element.draw = function(self)
-	error("Abstract function called")
+  error('Abstract function called')
 end
 
+Element.update = function(self) end
+
 Element.mouseInArea = function(self, mouseX, mouseY)
-	error("Abstract function called")
+  error('Abstract function called')
 end
 --mouse
 Element.onHover = nil
@@ -31,13 +33,13 @@ Element.onKeyUp = nil
 Element.onKeyPress = nil
 
 function Element:hasEventHandling()
-	if self.onMouseDown or self.onHover or self.onMouseDown or self.onMouseUp or self.onClick then
-		return true
-	end
-	if self.onKeyDown or self.onKeyUp or self.onKeyPress then
-		return true
-	end
-return false
+  if self.onMouseDown or self.onHover or self.onMouseDown or self.onMouseUp or self.onClick then
+    return true
+  end
+  if self.onKeyDown or self.onKeyUp or self.onKeyPress then
+    return true
+  end
+  return false
 end
 
 return Element

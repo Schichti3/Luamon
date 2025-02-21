@@ -34,4 +34,10 @@ function SceneManager:draw()
   end
 end
 
+function SceneManager:update(dt)
+  for i = 1, #self.sceneStack, 1 do
+    self.sceneStack[i]:update(dt)
+  end
+end
+
 return SceneManager
