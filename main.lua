@@ -13,5 +13,7 @@ end
 
 function love.draw()
   Controller.sceneManager:draw()
+  require('DebugInfo'):addText('width', love.graphics.getWidth())
+  require('DebugInfo'):addText('height', love.graphics.getHeight())
   require('DebugInfo'):show()
 end

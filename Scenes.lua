@@ -14,9 +14,6 @@ Scenes['mainMenu'] = Scene:new({
     defaultTextureName = 'playButtonDefault',
     mouseDownTextureName = 'playButtonMouseDown',
     hoverTextureName = 'playButtonHover',
-    onMouseDown = function()
-      Controller.changeSpriteAnimation('mainMenu', 'spriteTest2', 'attack')
-    end,
     onMouseUp = function()
       Controller.changeSpriteAnimation('mainMenu', 'spriteTest2', 'idle')
     end,
@@ -34,7 +31,7 @@ Scenes['fightAttacks'] = Scene:new({
     y = 200,
     text = 'attack1',
     onClick = function()
-      Controller.changeElementVariable('fightAttacks', 'attack1', 'text', 'attack187')
+      Controller.changeElementVariable('fightAttacks', 'attack1', 'text', 'clicked')
     end,
   }),
 })
