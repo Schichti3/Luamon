@@ -8,20 +8,20 @@ local Controller = require('Controller')
 local Scenes = {}
 
 Scenes['mainMenu'] = Scene:new({
-  playButton = TextureButton:new({
-    x = 200,
-    y = 300,
-    defaultTextureName = 'playButtonDefault',
-    mouseDownTextureName = 'playButtonMouseDown',
-    hoverTextureName = 'playButtonHover',
-    onMouseUp = function()
-      Controller.changeSpriteAnimation('mainMenu', 'spriteTest2', 'idle')
-    end,
-    onClick = function()
-      Controller.sceneManager:push('fightAttacks')
-    end,
+  spriteTest2 = Sprite:new(50, 50, 'idle', { idle = Animation:new('nohidance2', 84, 212, 0.2), attack = Animation:new('nohidance', 84, 212, 0.2) }),
+  TitleAnimation = Sprite:new(require('Utility').getCentered(400, love.graphics.getWidth()), 100, 'idle', {
+    idle = Animation:new('titleAnimated', 400, 150, 0.0000001),
   }),
-  spriteTest2 = Sprite:new(50, 50, 'idle', { idle = Animation:new('nohidance2', 84, 0.2), attack = Animation:new('nohidance', 84, 0.2) }),
+  StartButton = SimpleButton:new({
+    width = 200,
+    x = require('Utility').getCentered(200, love.graphics.getWidth()),
+    y = require('Utility').getCentered(SimpleButton.height, love.graphics.getHeight()),
+    text = 'Start',
+    borderColor = { 255, 24, 20 },
+    borderWidth = 4,
+    color = { 192, 192, 192 },
+    textColor = { 0, 0, 0 },
+  }),
 })
 Scenes['settings'] = {}
 Scenes['fightMain'] = {}

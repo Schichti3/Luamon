@@ -27,6 +27,7 @@ end
 
 function Sprite:draw()
   if self.visible then
+    love.graphics.setColor(1, 1, 1)
     self.animations[self.activeAnimation]:draw(self.x, self.y)
   end
 end

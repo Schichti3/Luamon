@@ -7,6 +7,8 @@ TextureButton.defaultTextureName = ''
 TextureButton.hoverTextureName = ''
 TextureButton.mouseDownTextureName = ''
 
+TextureButton.clickboxTolerance = 0
+
 function TextureButton:new(templateTable)
   local obj = templateTable or {}
   if obj.defaultTextureName then

@@ -5,17 +5,19 @@ Animation.spritesheetName = ''
 Animation.quad = nil
 Animation.frameHeight = 0
 Animation.frameWidth = 0
-Animation.frameIndex = 1
-Animation.frameCount = 0
+Animation.frameRowIndex = 1
+Animation.framesPerRowIndex = 1
+Animation.framesPerRow = 0
+Animation.framesRowCount = 0
 Animation.timePerFrame = 1
 Animation.timeOnCurrentFrame = 0
 
-function Animation:new(spritesheetName, frameWidth, timePerFrame)
-  local obj = { spritesheetName = spritesheetName, frameWidth = frameWidth, timePerFrame = timePerFrame }
+function Animation:new(spritesheetName, frameWidth, frameHeight, timePerFrame)
+  local obj = { spritesheetName = spritesheetName, frameWidth = frameWidth, frameHeight = frameHeight, timePerFrame = timePerFrame }
   setmetatable(obj, self)
   self.__index = self
-  obj.frameHeight = AssetManager:getTexture(obj.spritesheetName):getHeight()
-  obj.frameCount = AssetManager:getTexture(obj.spritesheetName):getWidth() / obj.frameWidth
+  obj.framesPerRow = AssetManager:getTexture(obj.spritesheetName):getWidth() / obj.frameWidth
+  obj.framesRowCount = AssetManager:getTexture(obj.spritesheetName):getHeight() / obj.frameHeight
   obj.quad = love.graphics.newQuad(
     0,
     0,
@@ -35,11 +37,15 @@ function Animation:update(dt)
   self.timeOnCurrentFrame = self.timeOnCurrentFrame + dt
   if self.timeOnCurrentFrame >= self.timePerFrame then
     self.timeOnCurrentFrame = 0
-    self.frameIndex = self.frameIndex + 1
-    if self.frameIndex > self.frameCount then
-      self.frameIndex = 1
+    self.framesPerRowIndex = self.framesPerRowIndex + 1
+    if self.framesPerRowIndex > self.framesPerRow then
+      self.framesPerRowIndex = 1
+      self.frameRowIndex = self.frameRowIndex + 1
     end
-    self.quad:setViewport((self.frameIndex - 1) * self.frameWidth, 0, self.frameWidth, self.frameHeight)
+    if self.frameRowIndex > self.framesRowCount then
+      self.frameRowIndex = 1
+    end
+    self.quad:setViewport((self.framesPerRowIndex - 1) * self.frameWidth, (self.frameRowIndex - 1) * self.frameHeight, self.frameWidth, self.frameHeight)
   end
 end
 
