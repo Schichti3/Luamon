@@ -9,11 +9,6 @@ function Utility.getCenteredTextCoordinates(text, x, y, w, h)
   return newX, newY
 end
 
-function Utility.getCenteredXFromGivenWidth(width, w)
-  local X = w / 2 - width / 2
-  return X
-end
-
 function Utility.getCentered(toCenter, centerTarget)
   local centered = centerTarget / 2 - toCenter / 2
   return centered
