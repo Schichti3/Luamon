@@ -11,6 +11,7 @@ TextureButton.clickboxTolerance = 0
 
 function TextureButton:new(templateTable)
   local obj = templateTable or {}
+  TextureButton.setStateValues(obj)
   if obj.defaultTextureName then
     obj.activeTextureName = obj.defaultTextureName
   end

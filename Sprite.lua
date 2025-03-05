@@ -5,6 +5,7 @@ Sprite.animations = {}
 
 function Sprite:new(x, y, activeAnimation, animations)
   local obj = { x = x, y = y, animations = animations, activeAnimation = activeAnimation }
+  Sprite.setStateValues(obj)
   setmetatable(obj, {
     __index = function(t, key)
       if key == 'draw' then

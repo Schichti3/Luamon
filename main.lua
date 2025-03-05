@@ -17,3 +17,11 @@ function love.draw()
   require('DebugInfo'):addText('height', love.graphics.getHeight())
   require('DebugInfo'):show()
 end
+
+function love.keypressed(key)
+  if require('DebugInfo').active == true then
+    if key == 'escape' then
+      love.event.quit()
+    end
+  end
+end

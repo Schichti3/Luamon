@@ -13,6 +13,7 @@ SimpleButton.borderColor = { 255, 255, 255 }
 
 function SimpleButton:new(templateTable)
   local obj = templateTable or {}
+  SimpleButton.setStateValues(obj)
   setmetatable(obj, self)
   self.__index = self
   return obj
@@ -36,17 +37,11 @@ function SimpleButton:mouseInArea(mouseX, mouseY)
   return mouseX >= self.x and mouseX <= self.x + self.width and mouseY >= self.y and mouseY <= self.y + self.height
 end
 
-function SimpleButton:onMouseDown()
-  self.text = 'mouseDown!'
-end
+function SimpleButton:onMouseDown() end
 
-function SimpleButton:onMouseUp()
-  self.text = 'mouseUp!'
-end
+function SimpleButton:onMouseUp() end
 
-function SimpleButton:onClick()
-  self.text = 'clicked!'
-end
+function SimpleButton:onClick() end
 
 function SimpleButton:onHover(onElement) end
 

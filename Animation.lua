@@ -9,11 +9,20 @@ Animation.frameRowIndex = 1
 Animation.framesPerRowIndex = 1
 Animation.framesPerRow = 0
 Animation.framesRowCount = 0
-Animation.timePerFrame = 1
+Animation.baseTimePerFrame = 1
+Animation.timePerFrame = Animation.baseTimePerFrame
 Animation.timeOnCurrentFrame = 0
+Animation.frameTimeAcceleration = 0
 
-function Animation:new(spritesheetName, frameWidth, frameHeight, timePerFrame)
-  local obj = { spritesheetName = spritesheetName, frameWidth = frameWidth, frameHeight = frameHeight, timePerFrame = timePerFrame }
+function Animation:new(spritesheetName, frameWidth, frameHeight, baseTimePerFrame, frameTimeAcceleration)
+  local obj = {
+    spritesheetName = spritesheetName,
+    frameWidth = frameWidth,
+    frameHeight = frameHeight,
+    baseTimePerFrame = baseTimePerFrame,
+    timePerFrame = baseTimePerFrame,
+    frameTimeAcceleration = frameTimeAcceleration,
+  }
   setmetatable(obj, self)
   self.__index = self
   obj.framesPerRow = AssetManager:getTexture(obj.spritesheetName):getWidth() / obj.frameWidth
@@ -36,6 +45,7 @@ end
 function Animation:update(dt)
   self.timeOnCurrentFrame = self.timeOnCurrentFrame + dt
   if self.timeOnCurrentFrame >= self.timePerFrame then
+    self.timePerFrame = self.timePerFrame + self.frameTimeAcceleration
     self.timeOnCurrentFrame = 0
     self.framesPerRowIndex = self.framesPerRowIndex + 1
     if self.framesPerRowIndex > self.framesPerRow then
@@ -44,6 +54,9 @@ function Animation:update(dt)
     end
     if self.frameRowIndex > self.framesRowCount then
       self.frameRowIndex = 1
+      if self.frameTimeAcceleration ~= 0 then
+        self.timePerFrame = self.baseTimePerFrame
+      end
     end
     self.quad:setViewport((self.framesPerRowIndex - 1) * self.frameWidth, (self.frameRowIndex - 1) * self.frameHeight, self.frameWidth, self.frameHeight)
   end

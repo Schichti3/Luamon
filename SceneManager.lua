@@ -12,6 +12,7 @@ end
 
 function SceneManager:push(sceneName)
   if self.scenes[sceneName] then
+    -- NOTE: maybe will man hier noch Code für die Szene ausführen bevor die actually gepusht wird, z.B Animationen könnte man zurücksetzen lassen aber is eine Designentscheidung, ob man das machen möchte
     table.insert(self.sceneStack, self.scenes[sceneName])
   else
     error('Tried to push non existing scene to the sceneStack')
@@ -19,7 +20,7 @@ function SceneManager:push(sceneName)
 end
 
 function SceneManager:pop()
-  table.remove(self.sceneStack, #self.sceneStack)
+  table.remove(self.sceneStack)
 end
 
 function SceneManager:handleEvents()

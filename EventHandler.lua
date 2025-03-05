@@ -13,7 +13,6 @@ function EventHandler:handle(elements)
     if element.onHover then
       element:onHover(mouseOnElement)
     end
-
     if mouseOnElement then
       local leftMouseWasDown = element.mouseDown.left
       local rightMouseWasDown = element.mouseDown.right
@@ -46,8 +45,10 @@ function EventHandler:handle(elements)
       if element.onClick and rightMouseWasDown and rightMouseUp then
         element:onClick(2)
       end
+    else
+      element.mouseDown.left = false
+      element.mouseDown.right = false
     end
-    --
     -- keyboard
 
     ::continue::
