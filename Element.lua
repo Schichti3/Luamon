@@ -42,6 +42,13 @@ function Element:hasEventHandling()
   return false
 end
 
+function Element:hasCustomSizeHandling()
+  if self.width == nil and self.height == nil then
+    return true
+  end
+  return false
+end
+
 function Element.setStateValues(targetObj)
   targetObj.mouseDown = { left = false, right = false }
   targetObj.keyDown = {}

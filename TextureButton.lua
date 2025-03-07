@@ -22,6 +22,7 @@ end
 
 function TextureButton:draw()
   if self.visible then
+    love.graphics.setColor(1, 1, 1)
     love.graphics.draw(AssetManager:getTexture(self.activeTextureName), self.x, self.y)
   end
 end

@@ -38,8 +38,8 @@ function Animation:new(spritesheetName, frameWidth, frameHeight, baseTimePerFram
   return obj
 end
 
-function Animation:draw(x, y)
-  love.graphics.draw(AssetManager:getTexture(self.spritesheetName), self.quad, x, y)
+function Animation:draw(x, y, scaleX, scaleY)
+  love.graphics.draw(AssetManager:getTexture(self.spritesheetName), self.quad, x, y, 0, scaleX, scaleY)
 end
 
 function Animation:update(dt)

@@ -41,4 +41,12 @@ function SceneManager:update(dt)
   end
 end
 
+function SceneManager:resize(currentWindowWidth, currentWindowHeight, newWindowWidth, newWindowHeight, initialWindowWidth, initialWindowHeight)
+  for _, scene in pairs(self.scenes) do
+    if scene.resize then
+      scene:resize(currentWindowWidth, currentWindowHeight, newWindowWidth, newWindowHeight, initialWindowWidth, initialWindowHeight)
+    end
+  end
+end
+
 return SceneManager
