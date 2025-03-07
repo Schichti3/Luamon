@@ -5,7 +5,7 @@ return Scene:new({
     width = 200,
     x = love.graphics.getWidth() - 200 - 20,
     y = love.graphics.getHeight() - SimpleButton.height - 20,
-    text = 'Back',
+    text = 'Zurück',
     borderColor = { 255, 24, 20 },
     borderWidth = 4,
     color = { 247, 252, 252 },
@@ -26,18 +26,18 @@ return Scene:new({
     width = 200,
     x = 20,
     y = 20,
-    text = 'Fullscreen off',
+    text = 'Vollbild an',
     borderColor = { 255, 24, 20 },
     borderWidth = 4,
     color = { 247, 252, 252 },
     textColor = { 0, 0, 0 },
     onClick = function(self)
-      if self.text == 'Fullscreen off' then
+      if self.text == 'Vollbild an' then
         Controller:changeWindowMode(WINDOW_MODE.FULLSCREEN)
-        self.text = 'Fullscreen on'
+        self.text = 'Vollbild aus'
       else
         Controller:changeWindowMode(WINDOW_MODE.WINDOWED)
-        self.text = 'Fullscreen off'
+        self.text = 'Vollbild an'
       end
     end,
     onHover = function(self, hoveredOn)

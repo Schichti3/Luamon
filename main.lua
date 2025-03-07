@@ -6,6 +6,7 @@ local currentWindowHeight = initialWindowHeight
 
 function love.load()
   -- NOTE: config muss hier geladen werden, die brauchen wir nämlich für das initiieren der scenes
+  love.window.setTitle('Luamon')
   love.window.setMode(currentWindowWidth, currentWindowHeight, { resizable = true })
   Controller.assetManager:load('assets')
   Controller.sceneManager:initScenes(require('Scenes'))

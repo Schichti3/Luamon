@@ -45,17 +45,17 @@ function Controller:changeWindowMode(mode)
   if mode == WINDOW_MODE.WINDOWED then
     local w = self.model:getConfigValue('windowWidth')
     local h = self.model:getConfigValue('windowHeight')
-    love.window.setMode(w, h, { fullscreen = false })
+    love.window.setMode(w, h, { fullscreen = false, resizable = true })
     self.model:changeConfig('windowMode', WINDOW_MODE.WINDOWED)
     love.resize(w, h)
   elseif mode == WINDOW_MODE.FULLSCREEN then
     local w, h = love.window.getDesktopDimensions()
-    love.window.setMode(w, h, { fullscreen = true, fullscreentype = 'exclusive' })
+    love.window.setMode(w, h, { fullscreen = true, fullscreentype = 'exclusive', resizable = true })
     self.model:changeConfig('windowMode', WINDOW_MODE.FULLSCREEN)
     love.resize(w, h)
   elseif mode == WINDOW_MODE.BORDERLESS_FULLSCREEN then
     local w, h = love.window.getDesktopDimensions()
-    love.window.setMode(w, h, { fullscreen = true, fullscreentype = 'desktop' })
+    love.window.setMode(w, h, { fullscreen = true, fullscreentype = 'desktop', resizable = true })
     self.model:changeConfig('windowMode', WINDOW_MODE.BORDERLESS_FULLSCREEN)
     love.resize(w, h)
   end
