@@ -5,6 +5,8 @@ Controller.assetManager = require('AssetManager')
 Controller.sceneManager = require('SceneManager')
 Controller.model = require('Model')
 
+Controller.textHolderReferences = {}
+
 function Controller.changeElementVariable(sceneName, elementName, variableName, value)
   local Scenes = require('Scenes')
   if not Scenes[sceneName] then
@@ -59,6 +61,19 @@ function Controller:changeWindowMode(mode)
     self.model:changeConfig('windowMode', WINDOW_MODE.BORDERLESS_FULLSCREEN)
     love.resize(w, h)
   end
+end
+
+function Controller:getText(textName)
+  local text = self.model:getText(textName)
+  if text then
+    return text
+  else
+    return 'TextNotFound: ' .. textName
+  end
+end
+
+function Controller:changeLanguage(languageName)
+  self.model:changeLanguage(languageName)
 end
 
 return Controller

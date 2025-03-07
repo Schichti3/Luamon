@@ -27,9 +27,9 @@ function SimpleButton:draw()
     love.graphics.setLineWidth(self.borderWidth)
     love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
 
-    local newX, newY = require('Utility').getCenteredTextCoordinates(self.text, self.x, self.y, self.width, self.height)
+    local newX, newY = require('Utility').getCenteredTextCoordinates(Controller:getText(self.text), self.x, self.y, self.width, self.height)
     love.graphics.setColor(love.math.colorFromBytes(self.textColor[1], self.textColor[2], self.textColor[3]))
-    love.graphics.print(self.text, newX, newY)
+    love.graphics.print(Controller:getText(self.text), newX, newY)
   end
 end
 

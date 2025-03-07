@@ -1,6 +1,6 @@
 local DebugInfo = {}
 
-DebugInfo.active = true
+DebugInfo.active = false
 
 DebugInfo.texts = {}
 
@@ -44,4 +44,3 @@ function DebugInfo:addText(key, text)
 end
 
 return DebugInfo
-

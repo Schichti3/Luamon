@@ -26,10 +26,11 @@ function love.draw()
 end
 
 function love.keypressed(key)
-  if require('DebugInfo').active == true then
-    if key == 'escape' then
-      love.event.quit()
-    end
+  --  if require('DebugInfo').active == false then
+  --   return
+  -- end
+  if key == 'escape' then
+    love.event.quit()
   end
 end
 

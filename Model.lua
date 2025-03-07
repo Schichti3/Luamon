@@ -1,12 +1,32 @@
 require('Constants')
 local Model = {}
 
+Model.texts = {
+  german = {
+    start = 'Start',
+    settings = 'Einstellungen',
+    back = 'Zurück',
+    fullscreenOn = 'Vollbild an',
+    fullscreenOff = 'Vollbild aus',
+    german = 'Deutsch',
+    english = 'Englisch',
+  },
+  english = {
+    start = 'Start',
+    settings = 'Settings',
+    back = 'Back',
+    fullscreenOn = 'Fullscreen on',
+    fullscreenOff = 'Fullscreen off',
+    german = 'German',
+    english = 'English',
+  },
+}
+
 Model.config = {
+  textsLanguage = 'german',
   windowWidth = { value = nil, default = 800 },
   windowHeight = { value = nil, default = 600 },
   windowMode = { value = nil, default = WINDOW_MODE.WINDOWED },
-  fullscreen = { value = nil, default = false },
-  borderless = { value = nil, default = false },
 }
 
 function Model:changeConfig(configName, value)
@@ -26,6 +46,21 @@ function Model:getConfigValue(configName)
     end
   end
   error('getConfigValue: configName not found')
+end
+
+function Model:getText(textName)
+  local text = self.texts[self.config.textsLanguage][textName]
+  if text then
+    return text
+  else
+    return 'TextNotFound: ' .. textName
+  end
+end
+
+function Model:changeLanguage(languageName)
+  if self.texts[languageName] then
+    self.config.textsLanguage = languageName
+  end
 end
 
 return Model

@@ -15,6 +15,9 @@ function Scene:new(elements)
       if key == 'resize' then
         return Scene.resize
       end
+      if key == 'updateTexts' then
+        return Scene.updateTexts
+      end
       if t.elements[key] then
         return t.elements[key]
       end
@@ -55,7 +58,6 @@ function Scene:resize(currentWindowWidth, currentWindowHeight, newWindowWidth, n
       element.height = newH
     else
       element:customResize(currentWindowWidth, currentWindowHeight, newWindowWidth, newWindowHeight, initialWindowWidth, initialWindowHeight)
-      --TODO: custom size handling for sprites and else
     end
   end
 end
