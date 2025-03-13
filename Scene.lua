@@ -52,6 +52,11 @@ function Scene:resize(currentWindowWidth, currentWindowHeight, newWindowWidth, n
         newWindowWidth,
         newWindowHeight
       )
+      if element.texts then
+        for _, text in pairs(element.texts) do
+          text:resize(newX, newY, newW, element.height, newH)
+        end
+      end
       element.x = newX
       element.y = newY
       element.width = newW

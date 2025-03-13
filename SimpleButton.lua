@@ -4,8 +4,10 @@ SimpleButton.width = love.graphics.getWidth() / 6
 SimpleButton.height = love.graphics.getHeight() * 0.075
 SimpleButton.color = { 0, 0, 0 }
 
-SimpleButton.text = 'Text'
-SimpleButton.textColor = { 255, 255, 255 }
+SimpleButton.texts = {}
+-- SimpleButton.textColor = { 255, 255, 255 }
+-- SimpleButton.textSize = 12
+-- SimpleButton.font = love.graphics.getFont()
 
 SimpleButton.border = true
 SimpleButton.borderWidth = 2
@@ -23,13 +25,14 @@ function SimpleButton:draw()
   if self.visible then
     love.graphics.setColor(love.math.colorFromBytes(self.color[1], self.color[2], self.color[3]))
     love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
-    love.graphics.setColor(love.math.colorFromBytes(self.borderColor[1], self.borderColor[2], self.borderColor[3]))
-    love.graphics.setLineWidth(self.borderWidth)
-    love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
-
-    local newX, newY = require('Utility').getCenteredTextCoordinates(Controller:getText(self.text), self.x, self.y, self.width, self.height)
-    love.graphics.setColor(love.math.colorFromBytes(self.textColor[1], self.textColor[2], self.textColor[3]))
-    love.graphics.print(Controller:getText(self.text), newX, newY)
+    if self.borderWidth > 0 then
+      love.graphics.setColor(love.math.colorFromBytes(self.borderColor[1], self.borderColor[2], self.borderColor[3]))
+      love.graphics.setLineWidth(self.borderWidth)
+      love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
+    end
+    for _, text in pairs(self.texts) do
+      text:draw(self.x, self.y, self.width, self.height)
+    end
   end
 end
 

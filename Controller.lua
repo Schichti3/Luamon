@@ -78,6 +78,9 @@ end
 
 function Controller:changeLanguage(languageName)
   self.model:changeLanguage(languageName)
+  --Note: resizing elements, because the text might have different sizes now!!!
+  --change will be necessary, when a real external saving logic is implemented
+  -- self.sceneManager:resize(800, 600, 800, 600)
 end
 
 return Controller

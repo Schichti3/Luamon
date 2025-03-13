@@ -8,8 +8,7 @@ function love.load()
   love.window.setMode(currentWindowWidth, currentWindowHeight, { resizable = true })
   Controller.assetManager:load('assets')
   Controller.sceneManager:initScenes(require('Scenes'))
-  -- Controller.sceneManager:push('mainMenu')
-  Controller.sceneManager:push('fightMenuAttacks')
+  Controller.sceneManager:push('mainMenu')
 end
 
 function love.update(dt)
@@ -21,6 +20,7 @@ function love.draw()
   Controller.sceneManager:draw()
   require('DebugInfo'):addText('width', love.graphics.getWidth())
   require('DebugInfo'):addText('height', love.graphics.getHeight())
+  -- require('DebugInfo'):addText('fontSize', love.graphics.getFont():getHeight())
   require('DebugInfo'):show()
 end
 

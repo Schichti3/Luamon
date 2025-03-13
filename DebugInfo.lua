@@ -33,6 +33,7 @@ function DebugInfo:show()
     for key, text in pairs(self.texts) do
       local displayText = key .. ': ' .. text
       local textWidth = love.graphics.getFont():getWidth(displayText)
+      love.graphics.setColor(1, 1, 1)
       love.graphics.print(displayText, love.graphics.getWidth() - textWidth, yOffset)
       yOffset = yOffset + love.graphics.getFont():getHeight()
     end

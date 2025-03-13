@@ -10,6 +10,8 @@ Model.texts = {
     fullscreenOff = 'Vollbild aus',
     german = 'Deutsch',
     english = 'Englisch',
+    inventory = 'Inventar',
+    team = 'Team',
   },
   english = {
     start = 'Start',
@@ -19,6 +21,8 @@ Model.texts = {
     fullscreenOff = 'Fullscreen off',
     german = 'German',
     english = 'English',
+    inventory = 'Inventory',
+    team = 'Team',
   },
 }
 

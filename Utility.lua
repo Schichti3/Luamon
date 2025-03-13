@@ -1,9 +1,9 @@
 --- Provides utility functions
 local Utility = {}
 
-function Utility.getCenteredTextCoordinates(text, x, y, w, h)
-  local textWidth = love.graphics.getFont():getWidth(text)
-  local textHeight = love.graphics.getFont():getHeight()
+function Utility.getCenteredTextCoordinates(text, font, x, y, w, h)
+  local textWidth = font:getWidth(text)
+  local textHeight = font:getHeight()
   local newX = x + w / 2 - textWidth / 2
   local newY = y + h / 2 - textHeight / 2
   return newX, newY
@@ -60,6 +60,12 @@ function Utility.scaleWHToParent(w, h, prevParentW, prevParentH, newParentW, new
   local scaledW = w * wFactor
   local scaledH = h * hFactor
   return scaledW, scaledH
+end
+
+function Utility.scaleText(textSize, prevParentH, newParentH)
+  local scaleFactor = newParentH / prevParentH
+  local scaledTextSize = textSize * scaleFactor
+  return scaledTextSize
 end
 
 return Utility
