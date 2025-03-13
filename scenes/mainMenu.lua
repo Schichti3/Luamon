@@ -1,13 +1,24 @@
 require('scenes.sceneRequirements')
 
+local buttonWidth = love.graphics.getWidth() / 3
+local buttonGap = love.graphics.getHeight() * 0.3
+local titleY = love.graphics.getHeight() / 6
+local titleW = love.graphics.getWidth() / 2
+local titleH = love.graphics.getHeight() / 4
+
 return Scene:new({
-  --spriteTest2 = Sprite:new(50, 50, 'idle', { idle = Animation:new('nohidance2', 84, 212, 0.2), attack = Animation:new('nohidance', 84, 212, 0.2) }),
-  TitleAnimation = Sprite:new(require('Utility').getCentered(400, love.graphics.getWidth()), 100, 'idle', {
-    idle = Animation:new('titleAnimated', 400, 150, 0.08, -0.0018),
-  }),
+  TitleAnimation = SpriteHolder:new(
+    require('Utility').getCentered(titleW, love.graphics.getWidth()),
+    titleY,
+    titleW,
+    titleH,
+    Sprite:new('idle', {
+      idle = Animation:new('titleAnimated', 400, 150, 0.08, -0.0018),
+    }, titleW / 400, titleH / 150)
+  ),
   StartButton = SimpleButton:new({
-    width = 200,
-    x = require('Utility').getCentered(200, love.graphics.getWidth()),
+    width = buttonWidth,
+    x = require('Utility').getCentered(buttonWidth, love.graphics.getWidth()),
     y = require('Utility').getCentered(SimpleButton.height, love.graphics.getHeight()),
     text = 'start',
     borderColor = { 255, 24, 20 },
@@ -23,9 +34,9 @@ return Scene:new({
     end,
   }),
   SettingsButton = SimpleButton:new({
-    width = 200,
-    x = require('Utility').getCentered(200, love.graphics.getWidth()),
-    y = require('Utility').getCentered(SimpleButton.height, love.graphics.getHeight() + 180),
+    width = buttonWidth,
+    x = require('Utility').getCentered(buttonWidth, love.graphics.getWidth()),
+    y = require('Utility').getCentered(SimpleButton.height, love.graphics.getHeight() + buttonGap),
     text = 'settings',
     borderColor = { 255, 24, 20 },
     borderWidth = 4,

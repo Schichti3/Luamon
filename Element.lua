@@ -43,7 +43,7 @@ function Element:hasEventHandling()
 end
 
 function Element:hasCustomSizeHandling()
-  if self.width == nil and self.height == nil then
+  if self.customSizeHandling then
     return true
   end
   return false

@@ -1,13 +1,12 @@
-local Sprite = setmetatable({}, { __index = require('Element') })
+local Sprite = {}
 
 Sprite.activeAnimation = ''
 Sprite.animations = {}
 Sprite.scaleFactorX = 1
 Sprite.scaleFactorY = 1
 
-function Sprite:new(x, y, activeAnimation, animations)
-  local obj = { x = x, y = y, animations = animations, activeAnimation = activeAnimation }
-  Sprite.setStateValues(obj)
+function Sprite:new(activeAnimation, animations, scaleFactorX, scaleFactorY)
+  local obj = { activeAnimation = activeAnimation, animations = animations, scaleFactorX = scaleFactorX, scaleFactorY = scaleFactorY }
   setmetatable(obj, {
     __index = function(t, key)
       if key == 'draw' then
@@ -31,23 +30,18 @@ function Sprite:new(x, y, activeAnimation, animations)
   return obj
 end
 
-function Sprite:draw()
-  if self.visible then
-    love.graphics.setColor(1, 1, 1)
-    self.animations[self.activeAnimation]:draw(self.x, self.y, self.scaleFactorX, self.scaleFactorY)
-  end
+function Sprite:draw(x, y)
+  love.graphics.setColor(1, 1, 1)
+  self.animations[self.activeAnimation]:draw(x, y, self.scaleFactorX, self.scaleFactorY)
 end
 
 function Sprite:update(dt)
   self.animations[self.activeAnimation]:update(dt)
 end
 
-function Sprite:customResize(currentWindowWidth, currentWindowHeight, newWindowWidth, newWindowHeight, initialWindowWidth, initialWindowHeight)
-  local newX, newY = require('Utility').scaleXYToParent(self.x, self.y, currentWindowWidth, currentWindowHeight, newWindowWidth, newWindowHeight)
-  self.x = newX
-  self.y = newY
-  self.scaleFactorX = newWindowWidth / initialWindowWidth
-  self.scaleFactorY = newWindowHeight / initialWindowHeight
+function Sprite:customResize(holderWidth, holderHeight)
+  self.scaleFactorX = holderWidth / self.animations[self.activeAnimation].frameWidth
+  self.scaleFactorY = holderHeight / self.animations[self.activeAnimation].frameHeight
 end
 
 return Sprite

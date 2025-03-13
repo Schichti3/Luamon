@@ -1,10 +1,13 @@
 require('scenes.sceneRequirements')
 
+local buttonWidth = love.graphics.getWidth() / 3
+local buttonPadding = love.graphics.getWidth() / 30
+
 return Scene:new({
   BackButton = SimpleButton:new({
-    width = 200,
-    x = love.graphics.getWidth() - 200 - 20,
-    y = love.graphics.getHeight() - SimpleButton.height - 20,
+    width = buttonWidth,
+    x = love.graphics.getWidth() - buttonWidth - buttonPadding,
+    y = love.graphics.getHeight() - SimpleButton.height - buttonPadding,
     text = 'back',
     borderColor = { 255, 24, 20 },
     borderWidth = 4,
@@ -23,9 +26,9 @@ return Scene:new({
     end,
   }),
   FullScreenToggle = SimpleButton:new({
-    width = 200,
-    x = 20,
-    y = 20,
+    width = buttonWidth,
+    x = buttonPadding,
+    y = buttonPadding,
     text = 'fullscreenOn',
     borderColor = { 255, 24, 20 },
     borderWidth = 4,
@@ -49,9 +52,9 @@ return Scene:new({
     end,
   }),
   LanguageChange = SimpleButton:new({
-    width = 200,
-    x = love.graphics.getWidth() - 200 - 20,
-    y = 20,
+    width = buttonWidth,
+    x = love.graphics.getWidth() - buttonWidth - buttonPadding,
+    y = buttonPadding,
     text = 'german',
     borderColor = { 255, 24, 20 },
     borderWidth = 4,

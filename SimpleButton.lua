@@ -1,7 +1,7 @@
 local SimpleButton = setmetatable({}, { __index = require('Element') })
 
-SimpleButton.width = 100
-SimpleButton.height = 60
+SimpleButton.width = love.graphics.getWidth() / 6
+SimpleButton.height = love.graphics.getHeight() * 0.075
 SimpleButton.color = { 0, 0, 0 }
 
 SimpleButton.text = 'Text'

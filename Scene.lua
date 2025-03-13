@@ -39,7 +39,7 @@ function Scene:update(dt)
   end
 end
 
-function Scene:resize(currentWindowWidth, currentWindowHeight, newWindowWidth, newWindowHeight, initialWindowWidth, initialWindowHeight)
+function Scene:resize(currentWindowWidth, currentWindowHeight, newWindowWidth, newWindowHeight)
   for _, element in pairs(self.elements) do
     if element:hasCustomSizeHandling() == false then
       local newX, newY, newW, newH = require('Utility').scaleToParent(
@@ -57,7 +57,7 @@ function Scene:resize(currentWindowWidth, currentWindowHeight, newWindowWidth, n
       element.width = newW
       element.height = newH
     else
-      element:customResize(currentWindowWidth, currentWindowHeight, newWindowWidth, newWindowHeight, initialWindowWidth, initialWindowHeight)
+      element:customResize(currentWindowWidth, currentWindowHeight, newWindowWidth, newWindowHeight)
     end
   end
 end

@@ -1,5 +1,6 @@
 require('Constants')
 Scene = require('Scene')
+SpriteHolder = require('SpriteHolder')
 Sprite = require('Sprite')
 Animation = require('Animation')
 SimpleButton = require('SimpleButton')

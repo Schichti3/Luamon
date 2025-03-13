@@ -1,6 +1,6 @@
 local DebugInfo = {}
 
-DebugInfo.active = false
+DebugInfo.active = true
 
 DebugInfo.texts = {}
 

@@ -54,4 +54,12 @@ function Utility.scaleXYToParent(x, y, prevParentW, prevParentH, newParentW, new
   return scaledX, scaledY
 end
 
+function Utility.scaleWHToParent(w, h, prevParentW, prevParentH, newParentW, newParentH)
+  local wFactor = newParentW / prevParentW
+  local hFactor = newParentH / prevParentH
+  local scaledW = w * wFactor
+  local scaledH = h * hFactor
+  return scaledW, scaledH
+end
+
 return Utility

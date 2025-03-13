@@ -1,8 +1,6 @@
 local Controller = require('Controller')
-local initialWindowWidth = 800
-local initialWindowHeight = 600
-local currentWindowWidth = initialWindowWidth
-local currentWindowHeight = initialWindowHeight
+local currentWindowWidth = Controller:getConfigValue('windowWidth')
+local currentWindowHeight = Controller:getConfigValue('windowHeight')
 
 function love.load()
   -- NOTE: config muss hier geladen werden, die brauchen wir nämlich für das initiieren der scenes
@@ -10,7 +8,8 @@ function love.load()
   love.window.setMode(currentWindowWidth, currentWindowHeight, { resizable = true })
   Controller.assetManager:load('assets')
   Controller.sceneManager:initScenes(require('Scenes'))
-  Controller.sceneManager:push('mainMenu')
+  -- Controller.sceneManager:push('mainMenu')
+  Controller.sceneManager:push('fightMenuAttacks')
 end
 
 function love.update(dt)
@@ -35,7 +34,7 @@ function love.keypressed(key)
 end
 
 function love.resize(newWindowWidth, newWindowHeight)
-  Controller.sceneManager:resize(currentWindowWidth, currentWindowHeight, newWindowWidth, newWindowHeight, initialWindowWidth, initialWindowHeight)
+  Controller.sceneManager:resize(currentWindowWidth, currentWindowHeight, newWindowWidth, newWindowHeight)
   currentWindowWidth = newWindowWidth
   currentWindowHeight = newWindowHeight
 end

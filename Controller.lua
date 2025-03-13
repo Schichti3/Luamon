@@ -72,6 +72,10 @@ function Controller:getText(textName)
   end
 end
 
+function Controller:getConfigValue(configName)
+  return self.model:getConfigValue(configName)
+end
+
 function Controller:changeLanguage(languageName)
   self.model:changeLanguage(languageName)
 end
