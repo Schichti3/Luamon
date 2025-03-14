@@ -10,7 +10,7 @@ SimpleButton.texts = {}
 -- SimpleButton.font = love.graphics.getFont()
 
 SimpleButton.border = true
-SimpleButton.borderWidth = 2
+SimpleButton.borderWidth = 4
 SimpleButton.borderColor = { 255, 255, 255 }
 
 function SimpleButton:new(templateTable)

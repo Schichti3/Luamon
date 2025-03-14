@@ -92,4 +92,4 @@ return Scene:new({
       end
     end,
   }),
-})
+}, nil)

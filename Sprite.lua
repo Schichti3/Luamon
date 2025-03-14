@@ -15,8 +15,8 @@ function Sprite:new(activeAnimation, animations, scaleFactorX, scaleFactorY)
       if key == 'update' then
         return Sprite.update
       end
-      if key == 'customResize' then
-        return Sprite.customResize
+      if key == 'scaleToHolderDimensions' then
+        return Sprite.scaleToHolderDimensions
       end
       if t.animations[key] then
         return t.animations[key]
@@ -39,7 +39,7 @@ function Sprite:update(dt)
   self.animations[self.activeAnimation]:update(dt)
 end
 
-function Sprite:customResize(holderWidth, holderHeight)
+function Sprite:scaleToHolderDimensions(holderWidth, holderHeight)
   self.scaleFactorX = holderWidth / self.animations[self.activeAnimation].frameWidth
   self.scaleFactorY = holderHeight / self.animations[self.activeAnimation].frameHeight
 end

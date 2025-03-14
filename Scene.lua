@@ -2,8 +2,22 @@ local Scene = {}
 
 Scene.elements = {}
 
-function Scene:new(elements)
+Scene.visible = true
+
+Scene.onPush = nil
+Scene.onPop = nil
+
+function Scene:new(elements, callbacks)
   local newTable = { elements = elements }
+  newTable.visible = true
+  if callbacks then
+    if callbacks.onPop then
+      newTable.onPop = callbacks.onPop
+    end
+    if callbacks.onPush then
+      newTable.onPush = callbacks.onPush
+    end
+  end
   setmetatable(newTable, {
     __index = function(t, key)
       if key == 'draw' then
@@ -15,8 +29,8 @@ function Scene:new(elements)
       if key == 'resize' then
         return Scene.resize
       end
-      if key == 'updateTexts' then
-        return Scene.updateTexts
+      if key == 'setTexts' then
+        return Scene.setTexts
       end
       if t.elements[key] then
         return t.elements[key]
@@ -28,8 +42,10 @@ function Scene:new(elements)
 end
 
 function Scene:draw()
-  for _, element in pairs(self.elements) do
-    element:draw()
+  if self.visible then
+    for _, element in pairs(self.elements) do
+      element:draw()
+    end
   end
 end
 
@@ -54,7 +70,7 @@ function Scene:resize(currentWindowWidth, currentWindowHeight, newWindowWidth, n
       )
       if element.texts then
         for _, text in pairs(element.texts) do
-          text:resize(newX, newY, newW, element.height, newH)
+          text:resize(newX, newY, newW, newH)
         end
       end
       element.x = newX

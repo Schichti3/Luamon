@@ -6,7 +6,10 @@ Text.pos = TEXT_POS.CENTERED
 Text.x = 0
 Text.y = 0
 Text.textName = 'Text'
-Text.textSize = love.graphics.getFont():getHeight()
+Text.getTextSize = function()
+  return love.graphics.getHeight() / 50
+end
+Text.textSize = Text.getTextSize()
 Text.textColor = { 0, 0, 0 }
 Text.font = love.graphics.getFont()
 Text.gapToParentBorderX = 0
@@ -14,22 +17,25 @@ Text.gapToParentBorderY = 0
 
 function Text:new(pos, textName, parentX, parentY, parentW, parentH, opts)
   local obj = {}
-  if opts.textSize then
-    obj.textSize = opts.textSize
-  end
-  if opts.textColor then
-    obj.textColor = opts.textColor
-  end
-  if opts.gapToParentBorderX then
-    obj.gapToParentBorderX = opts.gapToParentBorderX
-  end
-  if opts.gapToParentBorderY then
-    obj.gapToParentBorderY = opts.gapToParentBorderY
+  if opts then
+    if opts.getTextSize then
+      obj.getTextSize = opts.getTextSize
+    end
+    if opts.textColor then
+      obj.textColor = opts.textColor
+    end
+    if opts.gapToParentBorderX then
+      obj.gapToParentBorderX = opts.gapToParentBorderX
+    end
+    if opts.gapToParentBorderY then
+      obj.gapToParentBorderY = opts.gapToParentBorderY
+    end
   end
   obj.pos = pos
   obj.textName = textName
   setmetatable(obj, self)
   self.__index = self
+  obj.textSize = obj.getTextSize()
   obj.font = love.graphics.newFont(obj.textSize)
   obj:setXY(parentX, parentY, parentW, parentH)
   return obj
@@ -41,8 +47,8 @@ function Text:draw()
   love.graphics.print(Controller:getText(self.textName), self.x, self.y)
 end
 
-function Text:resize(parentX, parentY, parentW, prevParentH, parentH)
-  self.textSize = require('Utility').scaleText(self.textSize, prevParentH, parentH)
+function Text:resize(parentX, parentY, parentW, parentH)
+  self.textSize = self.getTextSize()
   self.font = love.graphics.newFont(self.textSize)
   self:setXY(parentX, parentY, parentW, parentH)
 end

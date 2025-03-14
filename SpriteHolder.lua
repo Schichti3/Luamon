@@ -29,7 +29,12 @@ function SpriteHolder:customResize(currentWindowWidth, currentWindowHeight, newW
   self.y = newY
   self.width = newW
   self.height = newH
-  self.sprite:customResize(self.width, self.height)
+  self.sprite:scaleToHolderDimensions(self.width, self.height)
+end
+
+function SpriteHolder:changeSprite(newSprite)
+  self.sprite = newSprite
+  self.sprite:scaleToHolderDimensions(self.width, self.height)
 end
 
 return SpriteHolder
