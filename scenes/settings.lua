@@ -92,4 +92,32 @@ return Scene:new({
       end
     end,
   }),
-}, nil)
+}, {
+  onPush = function(self)
+    if Controller:getConfigValue('windowMode') == WINDOW_MODE.FULLSCREEN then
+      self.FullScreenToggle.texts = {
+        Text:new(
+          TEXT_POS.CENTERED,
+          'fullscreenOff',
+          self.FullScreenToggle.x,
+          self.FullScreenToggle.y,
+          self.FullScreenToggle.width,
+          self.FullScreenToggle.height,
+          {}
+        ),
+      }
+    else
+      self.FullScreenToggle.texts = {
+        Text:new(
+          TEXT_POS.CENTERED,
+          'fullscreenOn',
+          self.FullScreenToggle.x,
+          self.FullScreenToggle.y,
+          self.FullScreenToggle.width,
+          self.FullScreenToggle.height,
+          {}
+        ),
+      }
+    end
+  end,
+})

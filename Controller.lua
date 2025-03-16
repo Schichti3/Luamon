@@ -37,39 +37,51 @@ function Controller.changeSpriteAnimation(sceneName, spriteName, animationName)
   Scenes[sceneName][spriteName].activeAnimation = animationName
 end
 
+function Controller:initWindow()
+  local windowMode = self.model:getConfigValue('windowMode')
+  local w = self.model:getConfigValue('windowWidth')
+  local h = self.model:getConfigValue('windowHeight')
+  if windowMode == WINDOW_MODE.WINDOWED then
+    love.window.setMode(w, h, { fullscreen = false, borderless = false, resizable = true })
+  elseif windowMode == WINDOW_MODE.FULLSCREEN then
+    love.window.setMode(w, h, { fullscreen = true, fullscreentype = 'exclusive', resizable = true })
+  elseif windowMode == WINDOW_MODE.BORDERLESS_FULLSCREEN then
+    love.window.setMode(w, h, { fullscreen = true, fullscreentype = 'desktop', resizable = true })
+  end
+end
+
 function Controller:changeResolution(width, height)
-  love.window.setMode(width, height, { borderless = self.model:getConfigValue('borderless'), fullscreen = self.model:getConfigValue('fullscreen') })
-  self.model:changeConfig('windowWidth', width)
-  self.model:changeConfig('windowHeight', height)
+  self.model:changeConfig({ windowWidth = width, windowHeight = height })
 end
 
 function Controller:changeWindowMode(mode)
   if mode == WINDOW_MODE.WINDOWED then
     local w = self.model:getConfigValue('windowWidth')
     local h = self.model:getConfigValue('windowHeight')
-    love.window.setMode(w, h, { fullscreen = false, resizable = true })
-    self.model:changeConfig('windowMode', WINDOW_MODE.WINDOWED)
+    local fullscreenW, fullscreenH = love.window.getDesktopDimensions()
+    if h == fullscreenH then
+      -- local winW, winH = love.graphics.getDimensions()
+      -- h = fullscreenH - (fullscreenH - winH)
+      h = fullscreenH - 60
+    end
+    love.window.setMode(w, h, { fullscreen = false, borderless = false, resizable = true })
     love.resize(w, h)
+    self.model:changeConfig({ windowHeight = h, windowMode = WINDOW_MODE.WINDOWED })
   elseif mode == WINDOW_MODE.FULLSCREEN then
     local w, h = love.window.getDesktopDimensions()
     love.window.setMode(w, h, { fullscreen = true, fullscreentype = 'exclusive', resizable = true })
-    self.model:changeConfig('windowMode', WINDOW_MODE.FULLSCREEN)
     love.resize(w, h)
+    self.model:changeConfig({ windowMode = WINDOW_MODE.FULLSCREEN, windowWidth = w, windowHeight = h })
   elseif mode == WINDOW_MODE.BORDERLESS_FULLSCREEN then
     local w, h = love.window.getDesktopDimensions()
     love.window.setMode(w, h, { fullscreen = true, fullscreentype = 'desktop', resizable = true })
-    self.model:changeConfig('windowMode', WINDOW_MODE.BORDERLESS_FULLSCREEN)
     love.resize(w, h)
+    self.model:changeConfig({ windowMode = WINDOW_MODE.BORDERLESS_FULLSCREEN, windowWidth = w, windowHeight = h })
   end
 end
 
 function Controller:getText(textName)
-  local text = self.model:getText(textName)
-  if text then
-    return text
-  else
-    return 'TextNotFound: ' .. textName
-  end
+  return self.model:getText(textName)
 end
 
 function Controller:getConfigValue(configName)
@@ -80,7 +92,16 @@ function Controller:changeLanguage(languageName)
   self.model:changeLanguage(languageName)
   --Note: resizing elements, because the text might have different sizes now!!!
   --change will be necessary, when a real external saving logic is implemented
-  -- self.sceneManager:resize(800, 600, 800, 600)
+  self.sceneManager:resize(
+    self.model:getConfigValue('windowWidth'),
+    self.model:getConfigValue('windowHeight'),
+    self.model:getConfigValue('windowWidth'),
+    self.model:getConfigValue('windowHeight')
+  )
+end
+
+function Controller:loadConfig()
+  self.model:loadConfig()
 end
 
 return Controller

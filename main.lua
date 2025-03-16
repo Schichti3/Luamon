@@ -4,8 +4,12 @@ local currentWindowHeight = Controller:getConfigValue('windowHeight')
 
 function love.load()
   -- NOTE: config muss hier geladen werden, die brauchen wir nämlich für das initiieren der scenes
+  --Controller.model.saveToFile(Controller.model.config, 'config.lua')
+  Controller:loadConfig()
+  Controller:initWindow()
   love.window.setTitle('Luamon')
-  love.window.setMode(currentWindowWidth, currentWindowHeight, { resizable = true })
+  --love.window.setMode(Controller:getConfigValue('windowWidth'), Controller:getConfigValue('windowHeight'), { resizable = true })
+  -- Controller:changeWindowMode(Controller:getConfigValue('windowMode'))
   Controller.assetManager:load('assets')
   Controller.sceneManager:initScenes(require('Scenes'))
   Controller.sceneManager:push('mainMenu')
@@ -34,7 +38,6 @@ function love.keypressed(key)
 end
 
 function love.resize(newWindowWidth, newWindowHeight)
-  Controller.sceneManager:resize(currentWindowWidth, currentWindowHeight, newWindowWidth, newWindowHeight)
-  currentWindowWidth = newWindowWidth
-  currentWindowHeight = newWindowHeight
+  Controller.sceneManager:resize(Controller:getConfigValue('windowWidth'), Controller:getConfigValue('windowHeight'), newWindowWidth, newWindowHeight)
+  Controller:changeResolution(newWindowWidth, newWindowHeight)
 end
