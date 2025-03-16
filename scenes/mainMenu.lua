@@ -31,15 +31,9 @@ return Scene:new({
     borderWidth = 4,
     color = { 247, 252, 252 },
     textColor = { 0, 0, 0 },
-    onClick = function()
+    onClick = function(self)
+      -- self:onHover(false)
       Controller.sceneManager:push('fightMenuAttacks')
-    end,
-    onHover = function(self, hoveredOn)
-      if hoveredOn then
-        self.color = { 122, 122, 121 }
-      else
-        self.color = { 247, 252, 252 }
-      end
     end,
   }),
   SettingsButton = SimpleButton:new({
@@ -56,13 +50,6 @@ return Scene:new({
     onClick = function()
       Controller.sceneManager:pop()
       Controller.sceneManager:push('settings')
-    end,
-    onHover = function(self, hoveredOn)
-      if hoveredOn then
-        self.color = { 122, 122, 121 }
-      else
-        self.color = { 247, 252, 252 }
-      end
     end,
   }),
 })

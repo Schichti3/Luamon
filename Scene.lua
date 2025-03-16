@@ -29,8 +29,8 @@ function Scene:new(elements, callbacks)
       if key == 'resize' then
         return Scene.resize
       end
-      if key == 'setTexts' then
-        return Scene.setTexts
+      if key == 'resetStates' then
+        return Scene.resetStates
       end
       if t.elements[key] then
         return t.elements[key]
@@ -80,6 +80,15 @@ function Scene:resize(currentWindowWidth, currentWindowHeight, newWindowWidth, n
     else
       element:customResize(currentWindowWidth, currentWindowHeight, newWindowWidth, newWindowHeight)
     end
+  end
+end
+
+function Scene:resetStates()
+  for _, element in pairs(self.elements) do
+    if element.onHover then
+      element:onHover(false)
+    end
+    element:setStateValues()
   end
 end
 

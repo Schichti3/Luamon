@@ -12,7 +12,9 @@ end
 
 function SceneManager:push(sceneName)
   if self.scenes[sceneName] then
-    -- NOTE: maybe will man hier noch Code für die Szene ausführen bevor die actually gepusht wird, z.B Animationen könnte man zurücksetzen lassen aber is eine Designentscheidung, ob man das machen möchte
+    if #self.sceneStack > 0 then
+      self.sceneStack[#self.sceneStack]:resetStates()
+    end
     table.insert(self.sceneStack, self.scenes[sceneName])
     if self.scenes[sceneName].onPush then
       self.scenes[sceneName]:onPush()
@@ -31,9 +33,12 @@ function SceneManager:pop()
 end
 
 function SceneManager:handleEvents()
-  for i = #self.sceneStack, 1, -1 do
-    EventHandler:handle(self.sceneStack[i].elements)
-  end
+  -- NOTE: Approach 1 that only the top scene of the scenestack handles events
+  EventHandler:handle(self.sceneStack[#self.sceneStack].elements)
+  -- NOTE: Approach 2 that all displayed scenes handle events
+  -- for i = #self.sceneStack, 1, -1 do
+  --   EventHandler:handle(self.sceneStack[i].elements)
+  -- end
 end
 
 function SceneManager:draw()

@@ -50,6 +50,7 @@ function Element:hasCustomSizeHandling()
 end
 
 function Element.setStateValues(targetObj)
+  targetObj.mouseHovering = false
   targetObj.mouseDown = { left = false, right = false }
   targetObj.keyDown = {}
 end

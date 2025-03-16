@@ -46,6 +46,18 @@ function SimpleButton:onMouseUp() end
 
 function SimpleButton:onClick() end
 
-function SimpleButton:onHover(onElement) end
+function SimpleButton:onHover(onElement)
+  if onElement then
+    if self.mouseHovering == false then
+      self.color = { self.color[1] - 100, self.color[2] - 100, self.color[3] - 100 }
+      self.mouseHovering = true
+    end
+  else
+    if self.mouseHovering then
+      self.color = { self.color[1] + 100, self.color[2] + 100, self.color[3] + 100 }
+      self.mouseHovering = false
+    end
+  end
+end
 
 return SimpleButton
