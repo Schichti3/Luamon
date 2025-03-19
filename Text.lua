@@ -30,6 +30,9 @@ function Text:new(pos, textName, parentX, parentY, parentW, parentH, opts)
     if opts.gapToParentBorderY then
       obj.gapToParentBorderY = opts.gapToParentBorderY
     end
+    if opts.customText then
+      obj.customText = opts.customText
+    end
   end
   obj.pos = pos
   obj.textName = textName
@@ -44,7 +47,11 @@ end
 function Text:draw()
   love.graphics.setColor(love.math.colorFromBytes(self.textColor[1], self.textColor[2], self.textColor[3]))
   love.graphics.setFont(self.font)
-  love.graphics.print(Controller:getText(self.textName), self.x, self.y)
+  if self.customText then
+    love.graphics.print(self.textName, self.x, self.y)
+  else
+    love.graphics.print(Controller:getText(self.textName), self.x, self.y)
+  end
 end
 
 function Text:resize(parentX, parentY, parentW, parentH)
@@ -55,19 +62,26 @@ end
 
 function Text:setXY(parentX, parentY, parentW, parentH)
   local newX, newY
+  local text
+  if self.customText then
+    text = self.textName
+  else
+    text = Controller:getText(self.textName)
+  end
+
   if self.pos == TEXT_POS.CENTERED then
-    newX, newY = require('Utility').getCenteredTextCoordinates(Controller:getText(self.textName), self.font, parentX, parentY, parentW, parentH)
+    newX, newY = require('Utility').getCenteredTextCoordinates(text, self.font, parentX, parentY, parentW, parentH)
   elseif self.pos == TEXT_POS.TOPLEFT then
     newX = parentX + self.gapToParentBorderX
     newY = parentY + self.gapToParentBorderY
   elseif self.pos == TEXT_POS.TOPRIGHT then
-    newX = parentX + parentW - self.font:getWidth(Controller:getText(self.textName)) - self.gapToParentBorderX
+    newX = parentX + parentW - self.font:getWidth(text) - self.gapToParentBorderX
     newY = parentY - self.gapToParentBorderY
   elseif self.pos == TEXT_POS.BOTTOMLEFT then
     newX = parentX + self.gapToParentBorderX
     newY = parentY + parentH - self.font:getHeight() - self.gapToParentBorderY
   elseif self.pos == TEXT_POS.BOTTOMRIGHT then
-    newX = parentX + parentW - self.font:getWidth(Controller:getText(self.textName)) - self.gapToParentBorderX
+    newX = parentX + parentW - self.font:getWidth(text) - self.gapToParentBorderX
     newY = parentY + parentH - self.font:getHeight() - self.gapToParentBorderY
   end
 

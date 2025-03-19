@@ -71,8 +71,19 @@ return Scene:new({
   }),
 }, {
   onPush = function(self)
+    local loadedLuamon = require('Luamon')['noah']
     self.attack1.texts = {
-      Text:new(TEXT_POS.CENTERED, 'start', self.attack1.x, self.attack1.y, self.attack1.width, self.attack1.height, nil),
+      Text:new(TEXT_POS.CENTERED, loadedLuamon.ability1.name, self.attack1.x, self.attack1.y, self.attack1.width, self.attack1.height, nil),
+      Text:new(
+        TEXT_POS.BOTTOMRIGHT,
+        loadedLuamon.ability1.currentUses .. '/' .. loadedLuamon.ability1.maxUses,
+        self.attack1.x,
+        self.attack1.y,
+        self.attack1.width,
+        self.attack1.height,
+        { customText = true }
+      ),
+      Text:new(TEXT_POS.TOPLEFT, loadedLuamon.ability1.type, self.attack1.x, self.attack1.y, self.attack1.width, self.attack1.height, nil),
     }
     self.attack2.texts = {
       Text:new(TEXT_POS.CENTERED, 'start', self.attack2.x, self.attack2.y, self.attack2.width, self.attack2.height, nil),

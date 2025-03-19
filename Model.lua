@@ -12,6 +12,8 @@ Model.texts = {
     english = 'Englisch',
     inventory = 'Inventar',
     team = 'Team',
+    tackle = 'Tackle',
+    normal = 'Normal',
   },
   english = {
     start = 'Start',
@@ -23,6 +25,8 @@ Model.texts = {
     english = 'English',
     inventory = 'Inventory',
     team = 'Team',
+    tackle = 'Tackle',
+    normal = 'Normal',
   },
 }
 
