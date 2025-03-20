@@ -17,7 +17,8 @@ return Scene:new({
     titleH,
     Sprite:new('idle', {
       idle = Animation:new('titleAnimated', 400, 150, 0.08, -0.0018), --https://cooltext.com/
-    }, titleW / 400, titleH / 150)
+    }, titleW / 400, titleH / 150),
+    SPRITE_POS.TOPLEFT
   ),
   StartButton = SimpleButton:new({
     width = buttonWidth,
@@ -33,7 +34,8 @@ return Scene:new({
     textColor = { 0, 0, 0 },
     onClick = function(self)
       -- self:onHover(false)
-      Controller.sceneManager:push('fightMenuAttacks')
+      Controller.sceneManager:pop()
+      Controller.sceneManager:push('fightMenuMain')
     end,
   }),
   SettingsButton = SimpleButton:new({

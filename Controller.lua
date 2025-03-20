@@ -9,13 +9,13 @@ Controller.textHolderReferences = {}
 
 function Controller.changeElementVariable(sceneName, elementName, variableName, value)
   local Scenes = require('Scenes')
-  if not Scenes[sceneName] then
+  if Scenes[sceneName] == nil then
     error('changeElementVariable failed, sceneName: ' .. sceneName .. ' is invalid')
   end
-  if not Scenes[sceneName][elementName] then
+  if Scenes[sceneName][elementName] == nil then
     error('changeElementVariable failed, elementName: ' .. elementName .. ' is invalid')
   end
-  if not Scenes[sceneName][elementName][variableName] then
+  if Scenes[sceneName][elementName][variableName] == nil then
     error('changeElementVariable failed, variableName: ' .. variableName .. ' is invalid')
   end
 

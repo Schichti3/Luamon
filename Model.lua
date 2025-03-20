@@ -14,6 +14,10 @@ Model.texts = {
     team = 'Team',
     tackle = 'Tackle',
     normal = 'Normal',
+    none = 'leer',
+    whitespace = ' ',
+    fight = 'Kampf!',
+    exit = 'Verlassen',
   },
   english = {
     start = 'Start',
@@ -27,6 +31,10 @@ Model.texts = {
     team = 'Team',
     tackle = 'Tackle',
     normal = 'Normal',
+    none = 'empty',
+    whitespace = ' ',
+    fight = 'Fight!',
+    exit = 'Exit',
   },
 }
 

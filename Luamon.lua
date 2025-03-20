@@ -35,9 +35,9 @@ createLuamon(
   { defineStats(100, 100, 0.1, 0.05, nil), defineStats(110, 110, 0.1, 0.05, nil) },
   Sprites['noah'],
   Abilities['tackle'],
-  nil,
-  nil,
-  nil
+  Abilities['none'],
+  Abilities['none'],
+  Abilities['none']
 )
 
 return Luamon

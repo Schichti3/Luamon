@@ -39,9 +39,6 @@ return Scene:new({
     width = buttonWidth,
     x = buttonPadding,
     y = buttonPadding,
-    texts = {
-      Text:new(TEXT_POS.CENTERED, 'fullscreenOn', buttonPadding, buttonPadding, buttonWidth, SimpleButton.height, {}),
-    },
     borderColor = { 255, 24, 20 },
     borderWidth = 4,
     color = { 247, 252, 252 },
@@ -67,10 +64,6 @@ return Scene:new({
     width = buttonWidth,
     x = love.graphics.getWidth() - buttonWidth - buttonPadding,
     y = buttonPadding,
-    texts = {
-      Text:new(TEXT_POS.CENTERED, 'german', love.graphics.getWidth() - buttonWidth - buttonPadding, buttonPadding, buttonWidth, SimpleButton.height, {}),
-    },
-    text = 'german',
     borderColor = { 255, 24, 20 },
     borderWidth = 4,
     color = { 247, 252, 252 },
@@ -117,6 +110,15 @@ return Scene:new({
           self.FullScreenToggle.height,
           {}
         ),
+      }
+    end
+    if Controller:getConfigValue('textsLanguage') == 'german' then
+      self.LanguageChange.texts = {
+        Text:new(TEXT_POS.CENTERED, 'german', self.LanguageChange.x, self.LanguageChange.y, self.LanguageChange.width, self.LanguageChange.height, {}),
+      }
+    elseif Controller:getConfigValue('textsLanguage') == 'english' then
+      self.LanguageChange.texts = {
+        Text:new(TEXT_POS.CENTERED, 'english', self.LanguageChange.x, self.LanguageChange.y, self.LanguageChange.width, self.LanguageChange.height, {}),
       }
     end
   end,

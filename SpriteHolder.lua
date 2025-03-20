@@ -1,11 +1,14 @@
 local SpriteHolder = setmetatable({}, { __index = require('Element') })
+require('Constants')
 
 SpriteHolder.sprite = nil
 SpriteHolder.width = 0
 SpriteHolder.customSizeHandling = true
+SpriteHolder.spritePos = SPRITE_POS.CENTERED
 
-function SpriteHolder:new(x, y, w, h, sprite)
-  local obj = { x = x, y = y, width = w, height = h, sprite = sprite }
+function SpriteHolder:new(x, y, w, h, sprite, spritePos)
+  local obj = { x = x, y = y, width = w, height = h, sprite = sprite, spritePos = spritePos }
+  obj.sprite:scaleToHolderDimensions(obj.width, obj.height)
   SpriteHolder.setStateValues(obj)
   setmetatable(obj, self)
   self.__index = self
@@ -14,7 +17,7 @@ end
 
 function SpriteHolder:draw()
   if self.visible then
-    self.sprite:draw(self.x, self.y)
+    self.sprite:draw(self.x, self.y, self.width, self.height, self.spritePos)
   end
 end
 
